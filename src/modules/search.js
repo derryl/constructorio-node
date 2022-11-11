@@ -223,6 +223,8 @@ class Search {
       && typeof networkParameters.customHeader.headerName === 'string'
       && typeof networkParameters.customHeader.headerValue === 'string'
     ) {
+      /* eslint-disable-next-line */
+      console.log('Setting custom header:', networkParameters.customHeader.headerName, networkParameters.customHeader.headerValue);
       headers[networkParameters.customHeader.headerName] = networkParameters.customHeader.headerValue;
     }
 
