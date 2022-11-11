@@ -217,6 +217,15 @@ class Search {
       headers['User-Agent'] = userParameters.userAgent;
     }
 
+    if (
+      networkParameters.customHeader
+      && typeof networkParameters.customHeader === 'object'
+      && typeof networkParameters.customHeader.headerName === 'string'
+      && typeof networkParameters.customHeader.headerValue === 'string'
+    ) {
+      headers[networkParameters.customHeader.headerName] = networkParameters.customHeader.headerValue;
+    }
+
     // Handle network timeout if specified
     helpers.applyNetworkTimeout(this.options, networkParameters, controller);
 
