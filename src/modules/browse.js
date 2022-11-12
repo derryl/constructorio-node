@@ -224,7 +224,7 @@ function createHeaders(options, userParameters) {
     headers[customHeader.headerName] = customHeader.headerValue;
   } else {
     /* eslint-disable-next-line */
-    console.error('CNSTR - Could not set custom header:', this.options);
+    console.error('CNSTR - Could not set custom header:', options);
   }
 
   return headers;

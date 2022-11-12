@@ -37,6 +37,7 @@ class ConstructorIO {
     const {
       apiKey,
       apiToken,
+      customHeader,
       version,
       serviceUrl,
       securityToken,
@@ -51,6 +52,7 @@ class ConstructorIO {
     this.options = {
       apiKey,
       apiToken: apiToken || '',
+      customHeader,
       securityToken: securityToken || '',
       version: version || global.CLIENT_VERSION || `cio-node-${packageVersion}`,
       serviceUrl: (serviceUrl && serviceUrl.replace(/\/$/, '')) || 'https://ac.cnstrc.com',
