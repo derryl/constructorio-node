@@ -224,8 +224,11 @@ class Search {
       && typeof networkParameters.customHeader.headerValue === 'string'
     ) {
       /* eslint-disable-next-line */
-      console.log('Setting custom header:', networkParameters.customHeader.headerName, networkParameters.customHeader.headerValue);
+      console.log('CNSTR - Setting custom header:', networkParameters.customHeader.headerName, networkParameters.customHeader.headerValue);
       headers[networkParameters.customHeader.headerName] = networkParameters.customHeader.headerValue;
+    } else {
+      /* eslint-disable-next-line */
+      console.error('CNSTR - Could not set custom header:', networkParameters);
     }
 
     // Handle network timeout if specified
