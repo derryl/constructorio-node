@@ -193,7 +193,7 @@ function createBrowseUrlForFacetOptions(facetName, parameters, userParameters, o
 }
 
 // Create request headers using supplied options and user parameters
-function createHeaders(options, userParameters, networkParameters) {
+function createHeaders(options, userParameters) {
   const headers = {};
 
   // Append security token as 'x-cnstrc-token' if available
@@ -211,18 +211,20 @@ function createHeaders(options, userParameters, networkParameters) {
     headers['User-Agent'] = userParameters.userAgent;
   }
 
+  const customHeader = (options && options.customHeader);
+
   if (
-    networkParameters.customHeader
-    && typeof networkParameters.customHeader === 'object'
-    && typeof networkParameters.customHeader.headerName === 'string'
-    && typeof networkParameters.customHeader.headerValue === 'string'
+    customHeader
+    && typeof customHeader === 'object'
+    && typeof customHeader.headerName === 'string'
+    && typeof customHeader.headerValue === 'string'
   ) {
     /* eslint-disable-next-line */
-    console.log('CNSTR - Setting custom header:', networkParameters.customHeader.headerName, networkParameters.customHeader.headerValue);
-    headers[networkParameters.customHeader.headerName] = networkParameters.customHeader.headerValue;
+    console.log('CNSTR - Setting custom header:', customHeader.headerName, customHeader.headerValue);
+    headers[customHeader.headerName] = customHeader.headerValue;
   } else {
     /* eslint-disable-next-line */
-    console.error('CNSTR - Could not set custom header:', networkParameters);
+    console.error('CNSTR - Could not set custom header:', this.options);
   }
 
   return headers;
@@ -287,7 +289,7 @@ class Browse {
     const fetch = (this.options && this.options.fetch) || nodeFetch;
     const controller = new AbortController();
     const { signal } = controller;
-    const headers = createHeaders(this.options, userParameters, networkParameters);
+    const headers = createHeaders(this.options, userParameters);
 
     try {
       requestUrl = createBrowseUrlFromFilter(filterName, filterValue, parameters, userParameters, this.options);
@@ -371,7 +373,7 @@ class Browse {
     const fetch = (this.options && this.options.fetch) || nodeFetch;
     const controller = new AbortController();
     const { signal } = controller;
-    const headers = createHeaders(this.options, userParameters, networkParameters);
+    const headers = createHeaders(this.options, userParameters);
 
     try {
       requestUrl = createBrowseUrlFromIDs(itemIds, parameters, userParameters, this.options);
@@ -442,7 +444,7 @@ class Browse {
     const fetch = (this.options && this.options.fetch) || nodeFetch;
     const controller = new AbortController();
     const { signal } = controller;
-    const headers = createHeaders(this.options, userParameters, networkParameters);
+    const headers = createHeaders(this.options, userParameters);
     const { serviceUrl } = this.options;
     const queryParams = createQueryParams(parameters, userParameters, this.options);
 

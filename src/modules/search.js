@@ -217,18 +217,20 @@ class Search {
       headers['User-Agent'] = userParameters.userAgent;
     }
 
+    const customHeader = (this.options && this.options.customHeader);
+
     if (
-      networkParameters.customHeader
-      && typeof networkParameters.customHeader === 'object'
-      && typeof networkParameters.customHeader.headerName === 'string'
-      && typeof networkParameters.customHeader.headerValue === 'string'
+      customHeader
+      && typeof customHeader === 'object'
+      && typeof customHeader.headerName === 'string'
+      && typeof customHeader.headerValue === 'string'
     ) {
       /* eslint-disable-next-line */
-      console.log('CNSTR - Setting custom header:', networkParameters.customHeader.headerName, networkParameters.customHeader.headerValue);
-      headers[networkParameters.customHeader.headerName] = networkParameters.customHeader.headerValue;
+      console.log('CNSTR - Setting custom header:', customHeader.headerName, customHeader.headerValue);
+      headers[customHeader.headerName] = customHeader.headerValue;
     } else {
       /* eslint-disable-next-line */
-      console.error('CNSTR - Could not set custom header:', networkParameters);
+      console.error('CNSTR - Could not set custom header:', this.options);
     }
 
     // Handle network timeout if specified
